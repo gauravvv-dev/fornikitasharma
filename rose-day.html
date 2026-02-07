@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You, My Rose 🌹</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;1,300&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;1,400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            /* Romantic color palette */
+            --rose-deep: #8B0000;
+            --rose-red: #C41E3A;
+            --rose-blush: #FFB6C1;
+            --rose-soft: #FFC0CB;
+            --ivory: #FFFFF0;
+            --cream: #FFF8F0;
+            --gold-accent: #D4AF37;
+
+            /* Typography */
+            --font-heading: 'Cormorant Garamond', serif;
+            --font-letter: 'Crimson Pro', serif;
+            --font-body: 'Libre Baskerville', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: linear-gradient(135deg, var(--cream) 0%, var(--ivory) 100%);
+            color: #2C1810;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Floating petals background */
+        .petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .petal {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(ellipse at center, var(--rose-soft) 0%, var(--rose-blush) 100%);
+            border-radius: 50% 50% 50% 0;
+            opacity: 0.6;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero-text {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--rose-deep);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Rose Container */
+        .rose-container {
+            position: relative;
+            cursor: pointer;
+            opacity: 0;
+            animation: fadeInUp 1.5s ease-out 1s forwards;
+        }
+
+        .rose-bud {
+            position: relative;
+            width: 150px;
+            height: 180px;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+        }
+
+        .rose-container:hover .rose-bud {
+            transform: scale(1.05);
+        }
+
+        /* Rose petals - closed bud */
+        .petal-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transition: all 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .outer-petal {
+            position: absolute;
+            width: 60px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--rose-red) 0%, var(--rose-deep) 100%);
+            border-radius: 50% 50% 50% 0;
+            transform-origin: bottom center;
+        }
+
+        .petal-1 {
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%) rotate(-15deg);
+        }
+
+        .petal-2 {
+            top: 20%;
+            left: 20%;
+            transform: rotate(-45deg);
+        }
+
+        .petal-3 {
+            top: 20%;
+            right: 20%;
+            transform: rotate(45deg);
+        }
+
+        .petal-4 {
+            bottom: 20%;
+            left: 25%;
+            transform: rotate(-90deg);
+        }
+
+        .petal-5 {
+            bottom: 20%;
+            right: 25%;
+            transform: rotate(90deg);
+        }
+
+        /* Blooming states */
+        .rose-container.bloom-1 .petal-1 {
+            transform: translateX(-50%) rotate(-30deg) translateY(-20px);
+        }
+
+        .rose-container.bloom-1 .petal-2 {
+            transform: rotate(-70deg) translateX(-15px);
+        }
+
+        .rose-container.bloom-1 .petal-3 {
+            transform: rotate(70deg) translateX(15px);
+        }
+
+        .rose-container.bloom-2 .petal-1 {
+            transform: translateX(-50%) rotate(-45deg) translateY(-40px);
+        }
+
+        .rose-container.bloom-2 .petal-2 {
+            transform: rotate(-100deg) translateX(-30px) translateY(-10px);
+        }
+
+        .rose-container.bloom-2 .petal-3 {
+            transform: rotate(100deg) translateX(30px) translateY(-10px);
+        }
+
+        .rose-container.bloom-2 .petal-4 {
+            transform: rotate(-120deg) translateX(-25px) translateY(10px);
+        }
+
+        .rose-container.bloom-2 .petal-5 {
+            transform: rotate(120deg) translateX(25px) translateY(10px);
+        }
+
+        .rose-container.bloom-3 .petal-1 {
+            transform: translateX(-50%) rotate(-60deg) translateY(-60px);
+            opacity: 0.9;
+        }
+
+        .rose-container.bloom-3 .petal-2 {
+            transform: rotate(-140deg) translateX(-50px) translateY(-20px);
+            opacity: 0.9;
+        }
+
+        .rose-container.bloom-3 .petal-3 {
+            transform: rotate(140deg) translateX(50px) translateY(-20px);
+            opacity: 0.9;
+        }
+
+        .rose-container.bloom-3 .petal-4 {
+            transform: rotate(-160deg) translateX(-45px) translateY(20px);
+            opacity: 0.9;
+        }
+
+        .rose-container.bloom-3 .petal-5 {
+            transform: rotate(160deg) translateX(45px) translateY(20px);
+            opacity: 0.9;
+        }
+
+        /* Rose center */
+        .rose-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, var(--rose-deep) 0%, var(--rose-red) 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.4);
+        }
+
+        /* Stem */
+        .stem {
+            position: absolute;
+            bottom: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 80px;
+            background: linear-gradient(to bottom, #2D5016 0%, #4A7C2C 100%);
+            border-radius: 2px;
+        }
+
+        .leaf {
+            position: absolute;
+            width: 30px;
+            height: 15px;
+            background: #4A7C2C;
+            border-radius: 50% 0 50% 0;
+            top: 30%;
+        }
+
+        .leaf-left {
+            left: -25px;
+            transform: rotate(-45deg);
+        }
+
+        .leaf-right {
+            right: -25px;
+            transform: rotate(45deg);
+        }
+
+        .tap-instruction {
+            font-family: var(--font-letter);
+            font-size: 1.1rem;
+            color: var(--rose-red);
+            margin-top: 8rem;
+            opacity: 0;
+            animation: pulse 2s ease-in-out infinite, fadeInUp 1.5s ease-out 2s forwards;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Bloom messages */
+        .bloom-message {
+            font-family: var(--font-letter);
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            color: var(--rose-deep);
+            text-align: center;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease-out;
+            font-style: italic;
+        }
+
+        .bloom-message.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Letter Section */
+        .letter-section {
+            position: relative;
+            max-width: 800px;
+            margin: 5rem auto;
+            padding: 3rem 2rem;
+            background: var(--ivory);
+            box-shadow: 0 10px 50px rgba(139, 0, 0, 0.1);
+            border: 1px solid var(--rose-blush);
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+            z-index: 2;
+        }
+
+        .letter-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .letter-section::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold-accent), transparent);
+        }
+
+        .letter-heading {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--rose-deep);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .letter-content {
+            font-family: var(--font-letter);
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            line-height: 2;
+            color: #2C1810;
+            text-align: left;
+        }
+
+        .letter-content p {
+            margin-bottom: 1.5rem;
+            opacity: 0;
+        }
+
+        .letter-content p.typed {
+            opacity: 1;
+        }
+
+        .letter-signature {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--rose-red);
+            text-align: right;
+            margin-top: 2rem;
+        }
+
+        /* Memory Cards Section */
+        .memory-section {
+            position: relative;
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 2rem;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+
+        .memory-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .memory-heading {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--rose-deep);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .memory-card {
+            position: relative;
+            background: var(--ivory);
+            padding: 2.5rem 2rem;
+            border-radius: 0;
+            box-shadow: 0 5px 20px rgba(139, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .memory-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--rose-red), var(--rose-blush));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.2);
+            border-color: var(--rose-blush);
+        }
+
+        .memory-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .memory-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .memory-title {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--rose-deep);
+            margin-bottom: 0.8rem;
+        }
+
+        .memory-text {
+            font-family: var(--font-letter);
+            font-size: 1rem;
+            color: #4A4A4A;
+            line-height: 1.8;
+        }
+
+        /* Photo Section */
+        .photo-section {
+            position: relative;
+            max-width: 900px;
+            margin: 5rem auto;
+            padding: 2rem;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+
+        .photo-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .photo-container-simple {
+            background: var(--ivory);
+            padding: 3rem;
+            box-shadow: 0 10px 50px rgba(139, 0, 0, 0.1);
+            border: 1px solid var(--rose-blush);
+            text-align: center;
+        }
+
+        .photo-heading {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--rose-deep);
+            margin-bottom: 2rem;
+        }
+
+        .photo-frame {
+            position: relative;
+            max-width: 500px;
+            aspect-ratio: 4/5;
+            margin: 0 auto 2rem;
+            overflow: hidden;
+            background: var(--cream);
+            border: 8px solid var(--ivory);
+            box-shadow:
+                0 0 0 1px var(--rose-blush),
+                0 20px 40px rgba(139, 0, 0, 0.15);
+        }
+
+        .photo-placeholder {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: var(--rose-red);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .upload-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .photo-placeholder p {
+            font-family: var(--font-letter);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .photo-placeholder small {
+            font-family: var(--font-letter);
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+
+        .memory-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(1.05) contrast(1.1) saturate(1.1);
+        }
+
+        .photo-caption {
+            font-family: var(--font-letter);
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .photo-container-simple {
+                padding: 2rem 1.5rem;
+            }
+
+            .photo-frame {
+                max-width: 100%;
+            }
+        }
+
+        /* Final Section */
+        .final-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+
+        .final-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .final-section.visible .final-rose {
+            animation: roseAppear 2s ease-out forwards;
+        }
+
+        @keyframes roseAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) rotate(-10deg);
+            }
+
+            60% {
+                transform: scale(1.1) rotate(2deg);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .final-rose {
+            font-size: 8rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            filter: drop-shadow(0 10px 30px rgba(139, 0, 0, 0.3));
+        }
+
+        .final-message {
+            font-family: var(--font-heading);
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--rose-deep);
+            text-align: center;
+            line-height: 1.8;
+            max-width: 700px;
+        }
+
+        .final-message .highlight {
+            color: var(--rose-red);
+            font-weight: 400;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-text {
+                font-size: 2rem;
+            }
+
+            .rose-bud {
+                width: 120px;
+                height: 150px;
+            }
+
+            .outer-petal {
+                width: 50px;
+                height: 65px;
+            }
+
+            .letter-section,
+            .memory-section {
+                margin: 3rem auto;
+                padding: 2rem 1.5rem;
+            }
+
+            .memory-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .final-rose {
+                font-size: 5rem;
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeInUp 1.5s ease-out 3s forwards;
+            z-index: 10;
+        }
+
+        .scroll-arrow {
+            width: 30px;
+            height: 30px;
+            border-right: 2px solid var(--rose-red);
+            border-bottom: 2px solid var(--rose-red);
+            transform: rotate(45deg);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0) rotate(45deg);
+            }
+
+            40% {
+                transform: translateY(-10px) rotate(45deg);
+            }
+
+            60% {
+                transform: translateY(-5px) rotate(45deg);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Music Control Button */
+        .music-control {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--rose-red);
+            color: white;
+            border: 3px solid var(--ivory);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            animation: pulse-music 2s ease-in-out infinite;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(139, 0, 0, 0.4);
+        }
+
+        .music-control.playing {
+            animation: none;
+        }
+
+        @keyframes pulse-music {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 4px 20px rgba(139, 0, 0, 0.3);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 6px 25px rgba(139, 0, 0, 0.4);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .music-control {
+                bottom: 1.5rem;
+                right: 1.5rem;
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Floating petals background -->
+    <div class="petals-container" id="petalsContainer"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="heroSection">
+        <h1 class="hero-text">For someone who makes my world bloom…</h1>
+
+        <div class="rose-container" id="roseContainer">
+            <div class="rose-bud">
+                <div class="petal-layer">
+                    <div class="outer-petal petal-1"></div>
+                    <div class="outer-petal petal-2"></div>
+                    <div class="outer-petal petal-3"></div>
+                    <div class="outer-petal petal-4"></div>
+                    <div class="outer-petal petal-5"></div>
+                    <div class="rose-center"></div>
+                </div>
+                <div class="stem">
+                    <div class="leaf leaf-left"></div>
+                    <div class="leaf leaf-right"></div>
+                </div>
+            </div>
+        </div>
+
+        <p class="tap-instruction" id="tapInstruction">Touch the rose 🌹</p>
+
+        <div class="bloom-message" id="bloomMessage1"></div>
+        <div class="bloom-message" id="bloomMessage2"></div>
+        <div class="bloom-message" id="bloomMessage3"></div>
+    </section>
+
+    <div class="scroll-indicator" id="scrollIndicator">
+        <div class="scroll-arrow"></div>
+    </div>
+
+    <!-- Letter Section -->
+    <section class="letter-section" id="letterSection">
+        <h2 class="letter-heading">A Letter Just for You</h2>
+        <div class="letter-content" id="letterContent">
+            <p>My dearest,</p>
+            <p>This rose day I wanted to so something different for u and I know i dont generally celebrate it but i
+                wanted to celebrate this time but as i am not there so I made this small website for you wishing you
+                rose day and giving you this rose.</p>
+            <p>I know things are not going well at this time between us and why would you even take a virtual rose from
+                me ? am i right ? I know but just a small thing i am doing for you, so lets talk about this at the end
+                first of all I wanted to tell you that there are moments in life that redefine everything, I thought I
+                knew everything about love, joy, companionship, but yeah as always I was wrong but after meeting you
+                that was the moment that redefined it.</p>
+            <p>Even your small talks, your gossips about everything, your day at your college, and the way you smile
+                when we talk or even giggles, it was just all a beautiful memory for me that keeps revolving in my head
+                and even the pics you forwarded me last night, its just it was lil bit difficult for me to even look
+                away from the phone for a second ngl.</p>
+            <p>This rose today is more than a gesture. Its not to make things right between us, just listen to me
+                carefully I am not doing this so you come back to me, ITS A SYMBOL OF EVERYTHING YOU MEAN TO ME--
+                Delicate yet strong, beautiful beyond measure</p>
+            <p>Thank you for being you. Thank you for choosing to share your world with me.</p>
+            <p class="letter-signature">Happy Rose Day❤️<br>— Gaurav</p>
+        </div>
+    </section>
+
+    <!-- Memory Section -->
+    <section class="memory-section" id="memorySection">
+        <h2 class="memory-heading">Moments That Matter</h2>
+        <div class="memory-grid">
+            <div class="memory-card">
+                <span class="memory-icon">✨</span>
+                <h3 class="memory-title">The First Time We Talked</h3>
+                <p class="memory-text">The first time we met I still remember was sitting behind next to you but not
+                    talking to you as I was scared but talking to you indirectly like asking about you "What's the next
+                    period?" just to hear your voice and even looking your eyes while headdown.</p>
+            </div>
+
+            <div class="memory-card">
+                <span class="memory-icon">😊</span>
+                <h3 class="memory-title">Your Laughter</h3>
+                <p class="memory-text">Well this section is just to remind you to always smile because you got one of
+                    the most beautiful and melodious smile in this world, so keep smiling</p>
+            </div>
+
+            <div class="memory-card">
+                <span class="memory-icon">💭</span>
+                <h3 class="memory-title">Our Silly Arguments</h3>
+                <p class="memory-text">Even when we fought or had a little disagreement, the part where every
+                    relationships get, but ngl even when you were angry to me you were looking cute (sorry but not sorry
+                    :) )</p>
+            </div>
+
+            <div class="memory-card">
+                <span class="memory-icon">🌙</span>
+                <h3 class="memory-title">Late Night Conversations</h3>
+                <p class="memory-text">Well this section refers to that time when we were not in the relationship and we
+                    talked like so so late at night, sharing about our day, our life and even those small small convo
+                    that we had during that period of 10th class.</p>
+            </div>
+
+            <div class="memory-card">
+                <span class="memory-icon">💫</span>
+                <h3 class="memory-title">The Way You Understand</h3>
+                <p class="memory-text">Whenever i was teaching you either it was in the school or in the college the way
+                    you grabs things and learns and ask your doubt was really impressive so keep growing coz you can
+                    achieve anything just be positive always</p>
+            </div>
+
+            <div class="memory-card">
+                <span class="memory-icon">❤️</span>
+                <h3 class="memory-title">Current Situation</h3>
+                <p class="memory-text">Well I know this is not the right way to end this section but beleive me just
+                    scroll down and also sorry for not being a good bf in the past.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Background Music -->
+    <audio id="backgroundMusic" loop>
+        <source src="Ruth_B__-_Dandelions__Audio__-_RuthBVEVO.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- Music Control Button -->
+    <button class="music-control" id="musicControl">
+        <span class="music-icon">🔇</span>
+    </button>
+
+    <!-- Photo Section -->
+    <section class="photo-section" id="photoSection">
+        <div class="photo-container-simple">
+            <h2 class="photo-heading">A Moment Frozen in Time</h2>
+            <div class="photo-frame">
+                <div class="photo-placeholder" id="photoPlaceholder" style="display: none;">
+                    <span class="upload-icon">📸</span>
+                    <p>Add your photo here</p>
+                    <small>(Replace image URL in code)</small>
+                </div>
+                <img src="our-photo.jpg" alt="Our Memory" class="memory-photo" id="memoryPhoto" style="display: block;">
+            </div>
+            <p class="photo-caption"></p>
+        </div>
+    </section>
+
+    <!-- Final Section -->
+    <section class="final-section" id="finalSection">
+        <div class="final-rose">🌹</div>
+        <p class="final-message">
+            If love had a shape today, it would be a rose.<br>
+            And if that rose had a name…<br>
+            it would be <span class="highlight">yours</span>.
+        </p>
+    </section>
+
+    <script>
+        // Create floating petals
+        function createPetals() {
+            const container = document.getElementById('petalsContainer');
+            const petalCount = 20;
+
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.className = 'petal';
+                petal.style.left = Math.random() * 100 + '%';
+                petal.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                petal.style.animationDelay = Math.random() * 5 + 's';
+                petal.style.width = (Math.random() * 10 + 15) + 'px';
+                petal.style.height = (Math.random() * 10 + 15) + 'px';
+                container.appendChild(petal);
+            }
+        }
+
+        // Rose blooming interaction
+        let bloomStage = 0;
+        const roseContainer = document.getElementById('roseContainer');
+        const tapInstruction = document.getElementById('tapInstruction');
+        const messages = [
+            "Every smile of yours means more than you know.",
+            "Every moment with you feels special.",
+            "This rose blooms for you."
+        ];
+
+        roseContainer.addEventListener('click', function () {
+            if (bloomStage < 3) {
+                bloomStage++;
+                roseContainer.classList.add('bloom-' + bloomStage);
+
+                // Show corresponding message
+                const messageElement = document.getElementById('bloomMessage' + bloomStage);
+                messageElement.textContent = messages[bloomStage - 1];
+                setTimeout(() => {
+                    messageElement.classList.add('visible');
+                }, 300);
+
+                // Hide tap instruction after first click
+                if (bloomStage === 1) {
+                    tapInstruction.style.opacity = '0';
+                }
+
+                // Show scroll indicator after full bloom
+                if (bloomStage === 3) {
+                    setTimeout(() => {
+                        document.getElementById('scrollIndicator').style.opacity = '1';
+                    }, 2000);
+                }
+            }
+        });
+
+        // Background music control
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const musicControl = document.getElementById('musicControl');
+        let isMusicPlaying = false;
+
+        // Try to autoplay on page load
+        window.addEventListener('load', () => {
+            backgroundMusic.play().then(() => {
+                isMusicPlaying = true;
+                musicControl.classList.add('playing');
+                musicControl.querySelector('.music-icon').textContent = '🔊';
+            }).catch(() => {
+                // Autoplay blocked - user will need to click the button
+                console.log('Autoplay blocked - click button to play music');
+            });
+        });
+
+        // Music control button
+        musicControl.addEventListener('click', function () {
+            if (isMusicPlaying) {
+                backgroundMusic.pause();
+                isMusicPlaying = false;
+                musicControl.classList.remove('playing');
+                musicControl.querySelector('.music-icon').textContent = '🔇';
+            } else {
+                backgroundMusic.play();
+                isMusicPlaying = true;
+                musicControl.classList.add('playing');
+                musicControl.querySelector('.music-icon').textContent = '🔊';
+            }
+        });
+
+        // Also try to play on first user interaction anywhere
+        let hasInteracted = false;
+        document.body.addEventListener('click', function () {
+            if (!hasInteracted && !isMusicPlaying) {
+                backgroundMusic.play().then(() => {
+                    isMusicPlaying = true;
+                    musicControl.classList.add('playing');
+                    musicControl.querySelector('.music-icon').textContent = '🔊';
+                }).catch(() => {
+                    // Still blocked, that's okay
+                });
+                hasInteracted = true;
+            }
+        }, { once: true });
+
+        // Scroll animations
+        function handleScroll() {
+            const sections = [
+                document.getElementById('letterSection'),
+                document.getElementById('memorySection'),
+                document.getElementById('photoSection'),
+                document.getElementById('finalSection')
+            ];
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight * 0.75;
+
+                if (isVisible && !section.classList.contains('visible')) {
+                    section.classList.add('visible');
+
+                    // Trigger letter typing animation
+                    if (section.id === 'letterSection') {
+                        typeLetterContent();
+                    }
+                }
+            });
+
+            // Hide scroll indicator when scrolled
+            if (window.scrollY > 100) {
+                document.getElementById('scrollIndicator').style.opacity = '0';
+            }
+        }
+
+        // Typing animation for letter
+        function typeLetterContent() {
+            const paragraphs = document.querySelectorAll('.letter-content p');
+            let delay = 0;
+
+            paragraphs.forEach((p, index) => {
+                setTimeout(() => {
+                    p.classList.add('typed');
+                }, delay);
+                delay += 800; // Stagger each paragraph
+            });
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            createPetals();
+            window.addEventListener('scroll', handleScroll);
+            handleScroll(); // Check initial position
+        });
+
+        // Smooth scroll for scroll indicator
+        document.getElementById('scrollIndicator').addEventListener('click', () => {
+            document.getElementById('letterSection').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+</body>
+
+</html>
